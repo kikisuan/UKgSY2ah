@@ -1,4 +1,4 @@
-# ORDERLY Python / Django Interview
+# ORDERLY Python Interview
 
 Hi,
 
