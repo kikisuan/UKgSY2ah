@@ -10,46 +10,51 @@ Hi,
 
 完成後，請發個PR到此專案
 
-### 挑戰一: Django CVB (folder: x_1)
+### 挑戰一: OO觀念運用 (folder: x_1)
 
-> 請使用 startapp 在一個全新的 Django 專案中建立新的 app 。
->
-> 於 Django CVB 中繼承 View 並實作 get() (views.py)，並需有一個 url pattern (urls.py) 可進入此頁面，當使用 GET 進入時，會偵測特定目錄 (自行定義) 下是否存在一個 ilovecoffee 資料夾，若無則建立，有則略過。
->
-> 賦予此 CVB 一個 create_csv()，並需有一個 url pattern, 當進入 (GET) 此頁面時，會隨機寫入 500 筆客戶資料至 customers.csv (csv 請放在 ilovecoffee 資料夾裡)，csv 結構如下:
+> 現在您的手上有 2 支手機，手機來自不同品牌，其規格屬性大同小異，但各自擁有一項特殊功能，請使用OO繼承及如下的規格，設計出這 2支手機的class。
 
 ```
-customer_id,customer_name, customer_mobile, frequency
-"y88xTa", "tom.y88xTa","+886938766119", "4"
-"uYt49x", "peter.uYt49x","+886938922440", "6"
-"p9g5As", "hank.p9g5As","+886918300227", "1"
-````
+手機共通屬性: price, camera_count, screen_size
+特殊功能: special_freature() 
 
-##### customer_id:
-長度8, 由數字[0-9], 大寫[A-Z]，小寫[a-z]隨機組成，但開頭不可為數字
+手機一 google phone:
+price=10, camera_count=3, screen_size=5
+special_freature 輸入一個int list, 回傳偶數且大於10的元素，並由大至小進行排序
+例如: 輸入 [3, 43, 62, 15, 18, 22] 回傳 [62, 22, 18]
 
-##### customer_name: 
-隨意用10個英文名字建立一組list: 如 ['tom','peter','hank'....]
-將customer_id與隨機從 name list 中取出的一個元素進行合併，例如產出"tom.y88xTa"
+手機二 taiwan phone:
+price=20, camera_count=1, screen_size=3
+special_freature
+輸入一個數字自動計算Fibonacci斐波那契數列的運算結果，並取最後二位(十位為 x、個位為 y)數字進行 p x 取 y (排序組合) 計算。
+例如: ---
 
-##### customer_mobile
-隨機產生一個+886開頭的台灣電話號碼，若新產出的電話號碼有重複，則需要重新產生
+```
 
-##### frequency
-從 [0-20] 中隨機選取
+### 挑戰二: 客戶排序 (RFM) (folder: x_2)
+> 設計一個 Class，並完成 4 種 RFM 計算。 
 
->
-> 最後，賦予此 CVB 一個 calculate_csv() 並需有一個 url pattern，當進入此頁面時 (GET) 回傳 JsonResponse，其內容為 frequency 的中數、眾數及平均數 (取至小數點後 5 位)
->
+```
+RFM 指標說明:
+用三個向度分析消費者的重要程度：
+1. Recency 新進度: 最後一次消費距離現在的時距
+2. Frequency 消費頻率: 此消費者消費次數的密集度
+3. Monetary Value 消費額: 此消費者的總消費金額
+三種向度各分成五級，而 RFM 總值即為三項度值加總。
+```
 
+> 現在您的手上有所有消費者的 RFM 值 ( /x_2/rfm.csv )，需要設計四個函式將消費者列表分別以三種向度以及 RFM 總值排序。已知的條件有: 
+- 消費者列表: 所有消費者的 ID 及 RFM 值 ( `list<clients>` )
+  - R ( `int` recency )
+  - F ( `int` frequency )
+  - M ( `int` monetary )
+  - ID ( `int` ID)
 
-
-### 挑戰二: Django 排程 (folder: x_2)
-> 請使用 startapp 在一個全新的 Django 專案中建立新的 app 。
-> 
-> 在 tasks.py 中撰寫一支爬蟲，透過 Django Q ，讓這隻爬蟲會在每天凌晨四點被啟動，並爬取 https://tw.yahoo.com/ 首頁，統計”台灣”二字出現的字數，將爬取日期時間與字數存於 SQLite 中。
-> 
-> 撰寫一個 CVB get()，當被 GET 時，會主動呼此此爬蟲進行動作。
+> 需要設計的函式（亦可以寫在同一個函式，指標用 flag 判斷）: 
+- 將 ID 以倒 R 值排序回傳 (大到小) ( `function` sort_by_recency( ) )
+- 將 ID 以倒 F 值排序回傳 (大到小) ( `function` sort_by_frequency( ) )
+- 將 ID 以 M 值排序回傳 (小到大) ( `function` sort_by_monetary( ) )
+- 將 ID 以倒 RFM 總值排序回傳 (大到小) ( `function` sort_by_RFM( ) )
 
 
 ### 挑戰三: Project 開發分配 (folder: x_3)
